@@ -1,0 +1,135 @@
+Noise,Vibration,Smoke,When,Location,CheckEngineLight,Problem
+squealing,no,no,startup,front,no,belt issue
+squealing,yes,no,startup,front,no,belt issue
+squealing,no,no,idle,front,no,belt issue
+squealing,no,no,driving,front,no,belt issue
+squealing,yes,no,driving,engine bay,no,belt issue
+squealing,no,no,accelerating,engine bay,no,belt issue
+squealing,no,no,startup,engine bay,no,belt issue
+squealing,yes,no,idle,engine bay,no,belt issue
+
+grinding,yes,no,braking,front,no,brake issue
+grinding,yes,no,braking,rear,no,brake issue
+grinding,no,no,braking,front,no,brake issue
+grinding,yes,no,turning,front,no,brake issue
+grinding,no,no,driving,front,no,brake issue
+grinding,yes,no,braking,front,yes,brake issue
+grinding,no,no,braking,rear,no,brake issue
+grinding,yes,no,driving,front,no,brake issue
+
+knocking,yes,no,accelerating,engine bay,yes,engine issue
+knocking,yes,yes,accelerating,engine bay,yes,engine issue
+knocking,no,no,idle,engine bay,yes,engine issue
+knocking,yes,no,driving,engine bay,yes,engine issue
+knocking,no,yes,startup,engine bay,yes,engine issue
+knocking,yes,no,accelerating,engine bay,no,engine issue
+knocking,no,no,accelerating,engine bay,yes,engine issue
+knocking,yes,yes,driving,engine bay,yes,engine issue
+
+ticking,no,no,idle,engine bay,yes,engine issue
+ticking,no,no,startup,engine bay,yes,engine issue
+ticking,yes,no,idle,engine bay,yes,engine issue
+ticking,no,no,driving,engine bay,yes,engine issue
+ticking,no,no,accelerating,engine bay,yes,engine issue
+ticking,yes,no,startup,engine bay,no,engine issue
+ticking,no,no,idle,engine bay,no,engine issue
+ticking,yes,no,driving,engine bay,yes,engine issue
+
+hissing,no,no,idle,engine bay,yes,vacuum issue
+hissing,no,no,accelerating,engine bay,yes,vacuum issue
+hissing,yes,no,idle,engine bay,yes,vacuum issue
+hissing,no,no,startup,engine bay,no,vacuum issue
+hissing,no,no,driving,engine bay,yes,vacuum issue
+hissing,yes,no,accelerating,engine bay,yes,vacuum issue
+hissing,no,no,idle,front,no,vacuum issue
+hissing,no,no,accelerating,front,yes,vacuum issue
+
+clicking,no,no,startup,engine bay,no,starter issue
+clicking,no,no,startup,front,no,starter issue
+clicking,yes,no,startup,engine bay,no,starter issue
+clicking,no,no,idle,engine bay,no,starter issue
+clicking,no,no,startup,engine bay,yes,starter issue
+clicking,yes,no,startup,front,no,starter issue
+clicking,no,no,startup,front,yes,starter issue
+clicking,no,no,idle,front,no,starter issue
+
+whining,no,no,driving,transmission tunnel,yes,transmission issue
+whining,yes,no,driving,transmission tunnel,yes,transmission issue
+whining,no,no,accelerating,transmission tunnel,yes,transmission issue
+whining,yes,no,accelerating,transmission tunnel,yes,transmission issue
+whining,no,no,driving,rear,no,transmission issue
+whining,yes,no,driving,transmission tunnel,no,transmission issue
+whining,no,no,accelerating,transmission tunnel,no,transmission issue
+whining,yes,no,driving,transmission tunnel,yes,transmission issue
+
+rumbling,no,no,driving,rear,no,exhaust issue
+rumbling,yes,no,driving,rear,no,exhaust issue
+rumbling,no,yes,idle,rear,no,exhaust issue
+rumbling,no,yes,accelerating,rear,no,exhaust issue
+rumbling,yes,no,accelerating,rear,no,exhaust issue
+rumbling,no,no,idle,rear,no,exhaust issue
+rumbling,yes,yes,driving,rear,no,exhaust issue
+rumbling,no,yes,driving,rear,no,exhaust issue
+
+popping,no,no,accelerating,rear,no,exhaust issue
+popping,no,yes,accelerating,rear,no,exhaust issue
+popping,yes,no,driving,rear,no,exhaust issue
+popping,no,no,driving,rear,no,exhaust issue
+popping,no,yes,idle,rear,no,exhaust issue
+popping,yes,no,accelerating,rear,no,exhaust issue
+popping,no,no,decelerating,rear,no,exhaust issue
+popping,no,yes,decelerating,rear,no,exhaust issue
+
+buzzing,no,no,idle,dashboard,yes,electrical issue
+buzzing,no,no,startup,dashboard,yes,electrical issue
+buzzing,yes,no,driving,dashboard,yes,electrical issue
+buzzing,no,no,idle,engine bay,yes,electrical issue
+buzzing,no,no,driving,dashboard,no,electrical issue
+buzzing,yes,no,idle,dashboard,yes,electrical issue
+buzzing,no,no,startup,engine bay,no,electrical issue
+buzzing,no,no,driving,engine bay,yes,electrical issue
+
+clunking,yes,no,turning,front,no,suspension issue
+clunking,yes,no,driving,front,no,suspension issue
+clunking,no,no,turning,rear,no,suspension issue
+clunking,yes,no,braking,front,no,suspension issue
+clunking,no,no,driving,rear,no,suspension issue
+clunking,yes,no,turning,front,yes,suspension issue
+clunking,no,no,driving,front,no,suspension issue
+clunking,yes,no,turning,rear,no,suspension issue
+
+thumping,yes,no,driving,front,no,tire issue
+thumping,yes,no,driving,rear,no,tire issue
+thumping,no,no,driving,front,no,tire issue
+thumping,yes,no,accelerating,front,no,tire issue
+thumping,no,no,driving,rear,no,tire issue
+thumping,yes,no,driving,front,yes,tire issue
+thumping,no,no,accelerating,rear,no,tire issue
+thumping,yes,no,driving,rear,yes,tire issue
+
+roaring,yes,no,driving,front,no,wheel issue
+roaring,yes,no,turning,front,no,wheel issue
+roaring,no,no,driving,rear,no,wheel issue
+roaring,yes,no,driving,rear,no,wheel issue
+roaring,no,no,turning,front,no,wheel issue
+roaring,yes,no,accelerating,front,no,wheel issue
+roaring,no,no,driving,front,yes,wheel issue
+roaring,yes,no,turning,rear,no,wheel issue
+
+chirping,no,no,startup,front,no,belt issue
+chirping,no,no,idle,engine bay,no,belt issue
+chirping,yes,no,startup,engine bay,no,belt issue
+chirping,no,no,driving,front,no,belt issue
+chirping,no,no,accelerating,engine bay,no,belt issue
+chirping,yes,no,idle,front,no,belt issue
+chirping,no,no,startup,engine bay,yes,belt issue
+chirping,yes,no,driving,engine bay,no,belt issue
+
+rattling,no,no,idle,rear,no,exhaust issue
+rattling,no,no,driving,rear,no,exhaust issue
+rattling,yes,no,driving,rear,no,exhaust issue
+rattling,no,yes,idle,rear,no,exhaust issue
+rattling,no,no,accelerating,rear,no,exhaust issue
+rattling,yes,no,idle,rear,no,exhaust issue
+rattling,no,no,driving,front,no,exhaust issue
+rattling,no,yes,driving,rear,no,exhaust issue
