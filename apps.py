@@ -1,22 +1,96 @@
 import difflib
-import streamlit as st
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
+import streamlit as st
+from sklearn.ensemble import RandomForestClassifier
 
-st.title("🚗 Car Diagnostic Tool")
+st.set_page_config(
+    page_title="Smart Car Diagnostic",
+    page_icon="🚗",
+    layout="wide"
+)
+
+st.markdown("""
+<style>
+.main {
+    background-color: #f6efe7;
+}
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    max-width: 1200px;
+}
+
+.main-title {
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: #7a3e12;
+    margin-bottom: 0.2rem;
+}
+
+.main-subtitle {
+    font-size: 1rem;
+    color: #8a6a55;
+    margin-bottom: 1.5rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #7a3e12;
+    margin-bottom: 0.25rem;
+}
+
+.section-subtitle {
+    font-size: 0.95rem;
+    color: #8a6a55;
+    margin-bottom: 1rem;
+}
+
+.result-good {
+    background-color: #f6eadf;
+    border-left: 6px solid #c96b2c;
+    padding: 14px 16px;
+    border-radius: 12px;
+    color: #4e3426;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.result-warn {
+    background-color: #fff4e8;
+    border-left: 6px solid #d97706;
+    padding: 14px 16px;
+    border-radius: 12px;
+    color: #4e3426;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.small-note {
+    font-size: 0.9rem;
+    color: #8a6a55;
+    margin-top: 1rem;
+}
+
+.prediction-row {
+    background-color: #fffaf5;
+    border: 1px solid #e6d3c3;
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    color: #4e3426;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 @st.cache_data
 def load_data():
     data = pd.read_csv("bigger_car_diagnostics.csv")
 
-    data["Noise"] = data["Noise"].str.lower().str.strip()
-    data["Vibration"] = data["Vibration"].str.lower().str.strip()
-    data["Smoke"] = data["Smoke"].str.lower().str.strip()
-    data["When"] = data["When"].str.lower().str.strip()
-    data["Location"] = data["Location"].str.lower().str.strip()
-    data["CheckEngineLight"] = data["CheckEngineLight"].str.lower().str.strip()
-    data["Problem"] = data["Problem"].str.lower().str.strip()
+    for col in ["Noise", "Vibration", "Smoke", "When", "Location", "CheckEngineLight", "Problem"]:
+        data[col] = data[col].astype(str).str.lower().str.strip()
 
     return data
 
@@ -28,7 +102,12 @@ def train_model(data):
     )
     y = data["Problem"]
 
-    model = DecisionTreeClassifier(random_state=42)
+    model = RandomForestClassifier(
+        n_estimators=200,
+        max_depth=8,
+        min_samples_leaf=2,
+        random_state=42
+    )
     model.fit(X, y)
     return model, X.columns
 
@@ -37,10 +116,12 @@ def match_noise(user_noise, valid_noises):
     if user_noise in valid_noises:
         return user_noise, None
 
-    matches = difflib.get_close_matches(user_noise, valid_noises, n=1, cutoff=0.6)
+    matches = difflib.get_close_matches(user_noise, valid_noises, n=1, cutoff=0.4)
+
     if matches:
-        return matches[0], f"Using closest match: {matches[0]}"
-    return None, None
+        return matches[0], f"I haven't learned '{user_noise}', so I used '{matches[0]}' instead."
+
+    return None, f"I haven't learned '{user_noise}' and couldn't find a close match."
 
 
 try:
@@ -50,57 +131,149 @@ try:
     valid_noises = sorted(data["Noise"].unique())
     valid_vibration = ["yes", "no"]
     valid_smoke = ["yes", "no"]
-    valid_when = ["startup", "idle", "driving", "accelerating", "braking", "turning", "decelerating"]
-    valid_location = ["front", "rear", "engine bay", "dashboard", "transmission tunnel"]
+    valid_when = [
+        "startup", "idle", "driving", "accelerating",
+        "braking", "turning", "decelerating"
+    ]
+    valid_location = [
+        "front", "rear", "engine bay", "dashboard", "transmission tunnel"
+    ]
     valid_cel = ["yes", "no"]
 
-    noise = st.text_input("Noise")
-    vibration = st.text_input("Vibration? (yes/no)")
-    smoke = st.text_input("Smoke? (yes/no)")
-    when = st.text_input("When does it happen? (startup, idle, driving, accelerating, braking, turning, decelerating)")
-    location = st.text_input("Where is it coming from? (front, rear, engine bay, dashboard, transmission tunnel)")
-    cel = st.text_input("Check engine light? (yes/no)")
+    st.markdown('<div class="main-title">Smart Car Diagnostic</div>', unsafe_allow_html=True)
+    st.markdown(
+        '<div class="main-subtitle">Enter your symptoms and get intelligent predictions for possible car issues.</div>',
+        unsafe_allow_html=True
+    )
 
-    if st.button("Diagnose"):
-        noise = noise.lower().strip()
-        vibration = vibration.lower().strip()
-        smoke = smoke.lower().strip()
-        when = when.lower().strip()
-        location = location.lower().strip()
-        cel = cel.lower().strip()
+    left_col, right_col = st.columns([1, 1], gap="large")
 
-        matched_noise, noise_message = match_noise(noise, valid_noises)
-
-        if matched_noise is None:
-            st.warning(f"Unknown noise. Try one of these: {', '.join(valid_noises)}")
-        elif vibration not in valid_vibration:
-            st.warning("Vibration must be yes or no.")
-        elif smoke not in valid_smoke:
-            st.warning("Smoke must be yes or no.")
-        elif when not in valid_when:
-            st.warning("Invalid 'when' value.")
-        elif location not in valid_location:
-            st.warning("Invalid location.")
-        elif cel not in valid_cel:
-            st.warning("Check engine light must be yes or no.")
-        else:
-            if noise_message:
-                st.info(noise_message)
-
-            new_data = pd.DataFrame(
-                [[matched_noise, vibration, smoke, when, location, cel]],
-                columns=["Noise", "Vibration", "Smoke", "When", "Location", "CheckEngineLight"]
+    with left_col:
+        with st.container(border=True):
+            st.markdown('<div class="section-title">Enter Symptoms</div>', unsafe_allow_html=True)
+            st.markdown(
+                '<div class="section-subtitle">Fill out the details below to analyze the issue.</div>',
+                unsafe_allow_html=True
             )
 
-            new_data = pd.get_dummies(new_data).reindex(columns=model_columns, fill_value=0)
+            noise = st.text_input("Noise", placeholder="Type a sound like squealing, grinding, chirping...")
+            vibration = st.selectbox("Vibration", valid_vibration)
+            smoke = st.selectbox("Smoke", valid_smoke)
+            when = st.selectbox("When does it happen?", valid_when)
+            location = st.selectbox("Where is it coming from?", valid_location)
+            cel = st.selectbox("Check Engine Light", valid_cel)
 
-            probs = model.predict_proba(new_data)
-            confidence_score = max(probs[0]) * 100
-            prediction = model.predict(new_data)[0]
+            diagnose = st.button("Analyze Symptoms", use_container_width=True)
 
-            st.success(f"Predicted Issue: {prediction}")
-            st.write(f"Model confidence score: {confidence_score:.2f}%")
-            st.caption("This score reflects how sure the model is on this dataset, not real-world accuracy.")
+    with right_col:
+        with st.container(border=True):
+            st.markdown('<div class="section-title">Diagnostic Results</div>', unsafe_allow_html=True)
+            st.markdown(
+                '<div class="section-subtitle">Your results will appear here after running the diagnosis.</div>',
+                unsafe_allow_html=True
+            )
+
+            if diagnose:
+                noise = noise.lower().strip()
+                vibration = vibration.lower().strip()
+                smoke = smoke.lower().strip()
+                when = when.lower().strip()
+                location = location.lower().strip()
+                cel = cel.lower().strip()
+
+                matched_noise, noise_message = match_noise(noise, valid_noises)
+
+                if noise == "":
+                    st.markdown(
+                        '<div class="result-warn">Please enter a noise before running the diagnosis.</div>',
+                        unsafe_allow_html=True
+                    )
+
+                elif matched_noise is None:
+                    st.markdown(
+                        f'<div class="result-warn">{noise_message}</div>',
+                        unsafe_allow_html=True
+                    )
+                    st.write("Known sounds:")
+                    st.write(", ".join(valid_noises))
+
+                elif vibration not in valid_vibration:
+                    st.markdown(
+                        '<div class="result-warn">Vibration must be yes or no.</div>',
+                        unsafe_allow_html=True
+                    )
+
+                elif smoke not in valid_smoke:
+                    st.markdown(
+                        '<div class="result-warn">Smoke must be yes or no.</div>',
+                        unsafe_allow_html=True
+                    )
+
+                elif when not in valid_when:
+                    st.markdown(
+                        '<div class="result-warn">Invalid value for when it happens.</div>',
+                        unsafe_allow_html=True
+                    )
+
+                elif location not in valid_location:
+                    st.markdown(
+                        '<div class="result-warn">Invalid location.</div>',
+                        unsafe_allow_html=True
+                    )
+
+                elif cel not in valid_cel:
+                    st.markdown(
+                        '<div class="result-warn">Check engine light must be yes or no.</div>',
+                        unsafe_allow_html=True
+                    )
+
+                else:
+                    if noise_message:
+                        st.info(noise_message)
+
+                    new_data = pd.DataFrame(
+                        [[matched_noise, vibration, smoke, when, location, cel]],
+                        columns=["Noise", "Vibration", "Smoke", "When", "Location", "CheckEngineLight"]
+                    )
+
+                    new_data = pd.get_dummies(new_data).reindex(columns=model_columns, fill_value=0)
+
+                    probs = model.predict_proba(new_data)[0]
+                    results = list(zip(model.classes_, probs))
+                    results.sort(key=lambda x: x[1], reverse=True)
+
+                    top_problem, top_prob = results[0]
+                    second_problem, second_prob = results[1]
+
+                    if top_prob < 0.35:
+                        st.markdown(
+                            '<div class="result-warn">Low confidence result. Try adding more detail or testing more symptoms.</div>',
+                            unsafe_allow_html=True
+                        )
+                    elif abs(top_prob - second_prob) < 0.05:
+                        st.markdown(
+                            f'<div class="result-warn">The result is uncertain between <b>{top_problem}</b> ({top_prob * 100:.2f}%) and <b>{second_problem}</b> ({second_prob * 100:.2f}%).</div>',
+                            unsafe_allow_html=True
+                        )
+                    else:
+                        st.markdown(
+                            f'<div class="result-good">Most likely issue: <b>{top_problem}</b> ({top_prob * 100:.2f}%)</div>',
+                            unsafe_allow_html=True
+                        )
+
+                    st.markdown("### Top Predictions")
+                    for problem, prob in results[:3]:
+                        st.markdown(
+                            f'<div class="prediction-row"><b>{problem}</b> — {prob * 100:.2f}%</div>',
+                            unsafe_allow_html=True
+                        )
+
+                    st.markdown(
+                        '<div class="small-note">These probabilities reflect patterns in your dataset, not guaranteed real-world accuracy.</div>',
+                        unsafe_allow_html=True
+                    )
+            else:
+                st.write("No diagnosis yet. Enter symptoms on the left and click **Analyze Symptoms**.")
 
 except Exception as e:
     st.error(f"Error: {e}")
