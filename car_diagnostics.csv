@@ -1,0 +1,80 @@
+Noise,Vibration,Smoke,Problem
+backfiring,no,no,ignition coil failure
+backfiring,no,yes,exhaust valve damage
+backfiring,yes,no,air-fuel mixture issue
+banging,no,no,loose suspension bolt
+banging,yes,no,engine mount failure
+buzzing,no,no,electrical relay issue
+buzzing,yes,no,loose heat shield
+chirping,no,no,serpentine belt slip
+chirping,yes,no,pulley misalignment
+clattering,no,no,loose rocker arms
+clattering,yes,no,valvetrain failure
+clicking,no,no,loose wheel lug nuts
+clicking,no,no,starter motor failure
+clicking,yes,no,cv joint failure
+clicking,yes,no,low battery voltage
+clunking,no,no,control arm damage
+clunking,yes,no,loose suspension component
+coughing,no,no,fuel system clog
+coughing,yes,no,fuel pressure loss
+coughing,yes,yes,cylinder damage
+grinding,no,no,brake rotor damage
+grinding,yes,no,brake pad wear
+hissing,no,no,vacuum leak
+hissing,no,yes,coolant leak
+humming,no,no,tire imbalance
+humming,no,yes,engine overheating
+humming,yes,no,driveshaft imbalance
+knocking,no,no,engine detonation
+knocking,no,no,low engine oil
+knocking,no,no,low oil pressure
+knocking,yes,no,connecting rod damage
+knocking,yes,no,poor fuel quality
+knocking,yes,no,rod knock
+knocking,yes,yes,piston damage
+popping,no,no,exhaust backfire
+popping,yes,no,ignition timing issue
+rattling,no,no,loose exhaust pipe
+rattling,no,no,loose heat shield
+rattling,no,yes,catalytic converter damage
+rattling,no,yes,engine overheating
+rattling,yes,no,engine mount failure
+rattling,yes,no,timing chain wear
+roaring,no,no,exhaust leak
+roaring,no,no,exhaust pipe crack
+roaring,yes,no,muffler damage
+roaring,yes,no,muffler mount failure
+rumbling,no,no,tire cupping
+rumbling,no,no,uneven tire wear
+rumbling,yes,no,wheel bearing failure
+rumbling,yes,no,wheel bearing failure
+scraping,no,no,brake rotor damage
+scraping,yes,no,brake pad wear
+shaking,yes,no,spark plug failure
+shaking,yes,yes,compression loss
+shuddering,yes,no,engine misfire
+shuddering,yes,yes,head gasket failure
+sputtering,no,no,fuel injector clog
+sputtering,yes,no,fuel pump failure
+sputtering,yes,yes,head gasket failure
+squealing,no,no,serpentine belt wear
+squealing,no,no,serpentine belt wear
+squealing,yes,no,belt tensioner issue
+squealing,yes,no,belt tensioner issue
+tapping,no,no,lifter failure
+tapping,yes,no,lubrication issue
+thumping,no,no,loose spare tire
+thumping,yes,no,driveshaft damage
+ticking,no,no,valve clearance issue
+ticking,no,no,valve lifter wear
+ticking,yes,no,camshaft wear
+ticking,yes,no,engine misfire
+whining,no,no,power steering pump failure
+whining,no,yes,oil burning
+whining,yes,no,transmission gear wear
+whistling,no,no,intake air leak
+whistling,no,yes,turbo seal failure
+whistling,yes,no,turbocharger leak
+
+
