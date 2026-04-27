@@ -583,9 +583,10 @@ def feedback_controls(prefix=""):
     st.markdown('<div class="section-title">Was this correct?</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
+
     yes_clicked = col1.button("Yes", use_container_width=True, key=f"{prefix}yes")
     no_clicked = col2.button("No", use_container_width=True, key=f"{prefix}no")
-    unsure_clicked = col3.button("Not Sure", use_container_width=True, key=f"{prefix}unsure")
+    unsure_clicked = col3.button("Not Sure", use_container_width=True, key=f"{prefix}not_sure")
 
     with st.expander("Add details / corrected issue", expanded=st.session_state.feedback_status.startswith("Type")):
         actual_problem = st.text_input(
@@ -749,6 +750,7 @@ with st.expander("Ask a follow-up question", expanded=False):
 with st.sidebar:
     st.markdown("### App Info")
     st.write(f"CSV file: `{CSV_FILENAME}`")
+    st.write(f"Feedback file: `{os.path.join(os.path.dirname(os.path.abspath(__file__)), FEEDBACK_FILENAME)}`")
     st.write(f"Loaded from: `{csv_path}`")
     st.write(f"Rows: `{len(data)}`")
     st.write(f"Problems: `{len(sorted(data['Problem'].unique()))}`")
